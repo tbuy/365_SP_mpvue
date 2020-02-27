@@ -1,7 +1,7 @@
 <template name="8bb6ba5e">
   <view class="_div data-v-70be81cb">
     <view class="_p data-v-70be81cb card">
-      {{text}}
+      {{ text }}
     </view>
     <view class="_div data-v-70be81cb">
       <van-button type="default" class="_van-button data-v-70be81cb">默认按钮</van-button>
