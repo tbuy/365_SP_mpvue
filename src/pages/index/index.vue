@@ -1,31 +1,28 @@
 <template>
-  <card :text="motto"></card>
+  <div>
+    <div>banner</div>
+    <div>list</div>
+  </div>
 </template>
 
 <script>
-import card from "@/components/card";
 export default {
   data() {
-    return {
-      motto: 12345
-    };
+    return {};
   },
 
-  components: {
-    card
-  },
+  components: {},
 
-  methods: {},
-
-  created() {
-    this.$http
-      .get(url)
-      .then(res => {
-        console.log("res", res);
-      })
-      .catch(err => {});
-  }
+  methods: {}
 };
 </script>
 
-<style scoped></style>
+<style>
+.my-swipe .van-swipe-item {
+  color: #fff;
+  font-size: 20px;
+  line-height: 150px;
+  text-align: center;
+  background-color: #39a9ed;
+}
+</style>

@@ -1,14 +1,5 @@
-<template name="8bb6ba5e">
-  <view class="_div data-v-70be81cb">
-    <view class="_p data-v-70be81cb card">
-      {{ text }}
-    </view>
-    <view class="_div data-v-70be81cb">
-      <van-button type="default" class="_van-button data-v-70be81cb">默认按钮</van-button>
-      <van-button type="primary" class="_van-button data-v-70be81cb">主要按钮</van-button>
-      <van-button type="info" class="_van-button data-v-70be81cb">信息按钮</van-button>
-      <van-button type="warning" class="_van-button data-v-70be81cb">警告按钮</van-button>
-      <van-button type="danger" class="_van-button data-v-70be81cb">危险按钮</van-button>
-    </view>
+<import src="/components/slots" /><template name="8bb6ba5e">
+  <view class="_div data-v-70be81cb card"><template name="default"></template>
+    <view class="_div data-v-70be81cb card-item"><template data="{{...$root[$p], ...$root[$k], $root}}" is="{{$slotdefault || 'default'}}"></template></view>
   </view>
 </template>

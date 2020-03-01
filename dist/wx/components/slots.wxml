@@ -1,1 +1,13 @@
-<import src="/components/card.vue.wxml" />
+<import src="/components/scroll.vue.wxml" /><template name="data-v-36c88756-default-0">
+  <view class="_div data-v-36c88756 pub_card" wx:key="item.id" key="{{item.id}}" wx:for="{{videoList}}" wx:for-index="index" wx:for-item="item">
+    <view class="_div data-v-36c88756 pub_card_item">
+      <view class="_div data-v-36c88756 leftImage">
+        <image src="{{item.picture_url}}" style="width: 100%;height:100%" class="_img data-v-36c88756"></image>
+      </view>
+      <view class="_div data-v-36c88756 rightContent">
+        <view class="_div data-v-36c88756 title">{{ item.name }}</view>
+        <view class="_div data-v-36c88756">{{ item.teacher }}</view>
+      </view>
+    </view>
+  </view>
+</template>

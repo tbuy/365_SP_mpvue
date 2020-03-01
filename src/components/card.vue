@@ -1,26 +1,27 @@
 <template>
-  <div>
-    <p class="card">
-      {{ text }}
-    </p>
-    <div>
-      <van-button type="default">默认按钮</van-button>
-      <van-button type="primary">主要按钮</van-button>
-      <van-button type="info">信息按钮</van-button>
-      <van-button type="warning">警告按钮</van-button>
-      <van-button type="danger">危险按钮</van-button>
+  <div class="card">
+    <div class="card-item">
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  props: ["text"]
-};
+export default {};
 </script>
 
 <style>
 .card {
-  padding: 10px;
+  height: 100px;
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+.card-item {
+  box-shadow: 2px 2px 5px #f5f5f5;
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
+  padding: 8px 15px;
 }
 </style>

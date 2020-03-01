@@ -1,41 +1,79 @@
 require("./common/manifest.js")
 require("./common/vendor.js")
-global.webpackJsonpMpvue([4],[
-/* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */
+global.webpackJsonpMpvue([4],{
+
+/***/ 3:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__request_request__ = __webpack_require__(38);
 
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.productionTip = false;
 __WEBPACK_IMPORTED_MODULE_1__App__["a" /* default */].mpType = 'app';
 
-var Fly = __webpack_require__(9);
-var fly = new Fly();
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$http = fly;
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$http = __WEBPACK_IMPORTED_MODULE_2__request_request__["a" /* default */];
 
 const app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_1__App__["a" /* default */]);
 app.$mount();
 
 /***/ }),
-/* 5 */
+
+/***/ 38:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(8);
+var Fly = __webpack_require__(8);
+var fly = new Fly();
+//添加请求拦截器
+fly.interceptors.request.use(request => {
+    wx.showLoading({
+        title: "加载中",
+        mask: true
+    });
+    //给所有请求添加自定义header
+    request.headers["X-Tag"] = "flyio";
+    //打印出请求体
+    console.log(request.body);
+    //终止请求
+    //var err=new Error("xxx")
+    //err.request=request
+    //return Promise.reject(new Error(""))
+
+    //可以显式返回request, 也可以不返回，没有返回值时拦截器中默认返回request
+    return request;
+});
+
+//添加响应拦截器，响应拦截器会在then/catch处理之前执行
+fly.interceptors.response.use(response => {
+    wx.hideLoading();
+    //只将请求结果的data字段返回
+    return response.data.data;
+}, err => {
+    wx.hideLoading();
+    //发生网络错误后会走到这里
+    return Promise.resolve(err);
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (fly);
+
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(7);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(6)
+  __webpack_require__(5)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
@@ -78,14 +116,15 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 6 */
+
+/***/ 5:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 7 */,
-/* 8 */
+
+/***/ 7:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -102,17 +141,17 @@ if (false) {(function () {
      */
 
     let logs;
-    if (global.mpvuePlatform === 'my') {
-      logs = global.mpvue.getStorageSync({ key: 'logs' }).data || [];
+    if (global.mpvuePlatform === "my") {
+      logs = global.mpvue.getStorageSync({ key: "logs" }).data || [];
       logs.unshift(Date.now());
       global.mpvue.setStorageSync({
-        key: 'logs',
+        key: "logs",
         data: logs
       });
     } else {
-      logs = global.mpvue.getStorageSync('logs') || [];
+      logs = global.mpvue.getStorageSync("logs") || [];
       logs.unshift(Date.now());
-      global.mpvue.setStorageSync('logs', logs);
+      global.mpvue.setStorageSync("logs", logs);
     }
   },
   log() {
@@ -121,4 +160,5 @@ if (false) {(function () {
 });
 
 /***/ })
-],[4]);
+
+},[3]);
