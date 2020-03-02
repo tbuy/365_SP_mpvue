@@ -45,9 +45,12 @@ export default {
   box-shadow: 5rpx 5rpx 10rpx #f5f5f5;
   background-color: #fff;
   border: 1rpx solid #f5f5f5;
-  padding: 15rpx;
+  padding: 20rpx 30rpx;
   border-radius: 6rpx;
   box-sizing: border-box;
   display: flex;
+}
+.pub-icon {
+  color: rgb(105, 105, 105);
 }
 </style>

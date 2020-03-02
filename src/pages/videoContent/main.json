@@ -1,7 +1,6 @@
 {
-  "navigationBarTitleText": "视频列表",
+  "navigationBarTitleText": "视频详情",
   "usingComponents": {
     "van-image": "/static/vant/image/index"
-
   }
 }

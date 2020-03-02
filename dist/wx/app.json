@@ -2,7 +2,9 @@
   "pages": [
     "pages/index/main",
     "pages/video/main",
-    "pages/user/main"
+    "pages/user/main",
+    "pages/videoContent/main",
+    "pages/orderContent/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

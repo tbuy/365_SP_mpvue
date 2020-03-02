@@ -53,6 +53,28 @@
 					"id": -1,
 					"name": "pages/video/main",
 					"pathName": "pages/video/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/videoContent/main",
+					"pathName": "pages/videoContent/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/user/main",
+					"pathName": "pages/user/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "pages/orderContent/main",
+					"pathName": "pages/orderContent/main",
+					"query": "id=16",
 					"scene": null
 				}
 			]

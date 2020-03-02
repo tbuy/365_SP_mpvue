@@ -1,16 +1,22 @@
 require("./common/manifest.js")
 require("./common/vendor.js")
-global.webpackJsonpMpvue([4],{
-
-/***/ 3:
+global.webpackJsonpMpvue([6],[
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__request_request__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__request_request__ = __webpack_require__(12);
 
 
 
@@ -24,58 +30,18 @@ const app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_M
 app.$mount();
 
 /***/ }),
-
-/***/ 38:
+/* 8 */,
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var Fly = __webpack_require__(8);
-var fly = new Fly();
-//添加请求拦截器
-fly.interceptors.request.use(request => {
-    wx.showLoading({
-        title: "加载中",
-        mask: true
-    });
-    //给所有请求添加自定义header
-    request.headers["X-Tag"] = "flyio";
-    //打印出请求体
-    console.log(request.body);
-    //终止请求
-    //var err=new Error("xxx")
-    //err.request=request
-    //return Promise.reject(new Error(""))
-
-    //可以显式返回request, 也可以不返回，没有返回值时拦截器中默认返回request
-    return request;
-});
-
-//添加响应拦截器，响应拦截器会在then/catch处理之前执行
-fly.interceptors.response.use(response => {
-    wx.hideLoading();
-    //只将请求结果的data字段返回
-    return response.data.data;
-}, err => {
-    wx.hideLoading();
-    //发生网络错误后会走到这里
-    return Promise.resolve(err);
-});
-
-/* harmony default export */ __webpack_exports__["a"] = (fly);
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(11);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(5)
+  __webpack_require__(10)
 }
-var normalizeComponent = __webpack_require__(1)
+var normalizeComponent = __webpack_require__(0)
 /* script */
 
 /* template */
@@ -116,15 +82,13 @@ if (false) {(function () {
 
 
 /***/ }),
-
-/***/ 5:
+/* 10 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-
-/***/ 7:
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -159,6 +123,46 @@ if (false) {(function () {
   }
 });
 
-/***/ })
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-},[3]);
+"use strict";
+var Fly = __webpack_require__(13);
+var fly = new Fly();
+//添加请求拦截器
+fly.interceptors.request.use(request => {
+    wx.showLoading({
+        title: "加载中",
+        mask: true
+    });
+    //给所有请求添加自定义header
+    request.headers = {
+        "X-Tag": "flyio",
+        'Content-Type': 'application/json'
+        //打印出请求体
+    };console.log(request.body);
+    //终止请求
+    //var err=new Error("xxx")
+    //err.request=request
+    //return Promise.reject(new Error(""))
+
+    //可以显式返回request, 也可以不返回，没有返回值时拦截器中默认返回request
+    return request;
+});
+
+//添加响应拦截器，响应拦截器会在then/catch处理之前执行
+fly.interceptors.response.use(response => {
+    wx.hideLoading();
+    //只将请求结果的data字段返回
+    return response.data.data;
+}, err => {
+    wx.hideLoading();
+    //发生网络错误后会走到这里
+    return Promise.resolve(err);
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (fly);
+
+/***/ })
+],[7]);
