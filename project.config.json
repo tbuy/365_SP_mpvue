@@ -21,8 +21,8 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "wx481f52562354d497",
-	"projectname": "mpvue-template",
+	"appid": "wxbff8428c41bf1cce",
+	"projectname": "365_SP_mpvue",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -34,13 +34,28 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"gamePlugin": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/video/main",
+					"pathName": "pages/video/main",
+					"scene": null
+				}
+			]
 		}
 	}
 }
