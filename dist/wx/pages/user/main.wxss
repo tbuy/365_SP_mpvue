@@ -1,0 +1,56 @@
+@import "../../common/vendor.wxss";
+
+.userPage.data-v-20c0a6c7 {
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden;
+}
+.topContainer.data-v-20c0a6c7 {
+  height: 240rpx;
+  overflow: hidden;
+  display: -ms-flexbox;
+  display: flex;
+  box-shadow: 5rpx 5rpx 20rpx #d8d6d6;
+}
+.image.data-v-20c0a6c7 {
+  margin-top: 60rpx;
+  margin-left: 80rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2rpx solid #f5f5f5;
+}
+.name.data-v-20c0a6c7 {
+  margin-left: 40rpx;
+  line-height: 240rpx;
+  font-size: 34rpx;
+  color: rgb(87, 87, 87);
+}
+.bottomContainer.data-v-20c0a6c7 {
+  margin-top: 20rpx;
+}
+.item.data-v-20c0a6c7 {
+  height: 120rpx;
+  line-height: 120rpx;
+  color: rgb(87, 87, 87);
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 34rpx;
+  border-bottom: 0.1rpx solid #f5f5f5;
+}
+.item-icon.data-v-20c0a6c7 {
+  font-size: 40rpx;
+  margin: 0 20rpx 0 30rpx;
+  color: rgb(87, 87, 87);
+}
+.item-title.data-v-20c0a6c7 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+}
+.item-right.data-v-20c0a6c7 {
+  margin-right: 50rpx;
+}

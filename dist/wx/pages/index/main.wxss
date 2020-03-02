@@ -1,0 +1,47 @@
+@import "../../common/vendor.wxss";
+
+.banner.data-v-0c52e028 {
+  width: 100%;
+  height: 320rpx;
+}
+.orderList.data-v-0c52e028 {
+  margin-top: 30rpx;
+  font-size: 32rpx;
+}
+.pub_card_item.data-v-0c52e028 {
+  display: block;
+}
+.oneline.data-v-0c52e028 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.title.data-v-0c52e028 {
+  width: 40%;
+  font-weight: 700;
+  line-height: 60rpx;
+}
+.price.data-v-0c52e028 {
+  line-height: 60rpx;
+  font-size: 30rpx;
+  color: #ff7832;
+}
+text.data-v-0c52e028 {
+  font-size: 28rpx;
+  line-height: 60rpx;
+  color: #888;
+  vertical-align: middle;
+  margin-left: 20rpx;
+}
+.time.data-v-0c52e028 {
+  color: #b6b6b6;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  margin-top: 15rpx;
+}
+.icon.data-v-0c52e028 {
+  line-height: 60rpx;
+  margin-right: 10rpx;
+  font-size: 26rpx;
+}

@@ -1,0 +1,32 @@
+<template name="618f0d06">
+  <view class="_div data-v-0c52e028">
+    <swiper indicator-dots="{{options.indicatorDots}}" autoplay="{{options.autoplay}}" interval="{{options.interval}}" duration="{{options.duration}}" class="_swiper data-v-0c52e028">
+      <view class="_div data-v-0c52e028 banner">
+        <swiper-item wx:key="item.id" key="{{item.id}}" wx:for="{{bannerImage}}" wx:for-index="index" wx:for-item="item" class="_swiper-item data-v-0c52e028">
+          <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.url}}" class="_van-image data-v-0c52e028"></van-image>
+        </swiper-item>
+      </view>
+    </swiper>
+    <view class="_div data-v-0c52e028 orderList">
+      <scroll bindloadingMore="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_scroll data-v-0c52e028">
+        <view class="_div data-v-0c52e028 pub_card" wx:key="item.id" key="{{item.id}}" bindtap="handleProxy" data-eventid="{{'0_'+index}}" data-comkey="{{$k}}" wx:for="{{orderList}}" wx:for-index="index" wx:for-item="item">
+          <view class="_div data-v-0c52e028 pub_card_item">
+            <view class="_div data-v-0c52e028 oneline">
+              <view class="_div data-v-0c52e028 title">{{ item.work_type || "面议" }}</view>
+              <view class="_div data-v-0c52e028 price">{{ item.wage || "面议" }}</view>
+            </view>
+            <view class="_div data-v-0c52e028 text">
+              <van-icon name="clock-o" class="_van-icon data-v-0c52e028 pub-icon icon"></van-icon>{{ item.service_duration || "面议"
+            }}
+            </view>
+            <view class="_div data-v-0c52e028 text">
+              <van-icon name="location-o" class="_van-icon data-v-0c52e028 pub-icon icon"></van-icon>{{ item.service_address || "面议"
+            }}
+            </view>
+            <view class="_div data-v-0c52e028 time">{{ item.created_at }}</view>
+          </view>
+        </view>
+      </scroll>
+    </view>
+  </view>
+</template>

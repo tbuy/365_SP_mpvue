@@ -1,31 +1,177 @@
 <template>
-  <card :text="motto"></card>
+  <div>
+    <swiper
+      :indicator-dots="options.indicatorDots"
+      :autoplay="options.autoplay"
+      :interval="options.interval"
+      :duration="options.duration"
+    >
+      <div class="banner">
+        <swiper-item v-for="item in bannerImage" :key="item.id">
+          <van-image
+            width="100%"
+            height="100%"
+            fit="cover"
+            lazy-load
+            :src="item.url"
+          ></van-image>
+        </swiper-item>
+      </div>
+    </swiper>
+    <div class="orderList">
+      <scroll @loadingMore="loadingMore">
+        <div
+          class="pub_card"
+          v-for="item in orderList"
+          :key="item.id"
+          @click="goOrderContent(item.id)"
+        >
+          <div class="pub_card_item">
+            <div class="oneline">
+              <div class="title">{{ item.work_type || "面议" }}</div>
+              <div class="price">{{ item.wage || "面议" }}</div>
+            </div>
+            <div class="text">
+              <van-icon name="clock-o" class="pub-icon icon" />{{
+                item.service_duration || "面议"
+              }}
+            </div>
+            <div class="text">
+              <van-icon name="location-o" class="pub-icon icon" />{{
+                item.service_address || "面议"
+              }}
+            </div>
+            <div class="time">{{ item.created_at }}</div>
+          </div>
+        </div>
+      </scroll>
+    </div>
+  </div>
 </template>
 
 <script>
-import card from "@/components/card";
+import apiPath from "../../request/apiPath.js";
+import utils from "../../utils/index";
+import card from "../../components/card.vue";
+import scroll from "../../components/scroll.vue";
 export default {
   data() {
     return {
-      motto: 12345
+      bannerImage: [],
+      orderList: [],
+      lastId: 0,
+      pageNumber: 6,
+      isLast: false,
+      options: {
+        //轮播点
+        indicatorDots: true,
+        autoplay: true,
+        //时间间隔
+        interval: 3000,
+        //滑动时长
+        duration: 400
+      }
     };
   },
 
   components: {
-    card
+    card,
+    scroll
   },
 
-  methods: {},
-
-  created() {
-    this.$http
-      .get(url)
-      .then(res => {
-        console.log("res", res);
-      })
-      .catch(err => {});
+  methods: {
+    getAdPosition() {
+      this.$http.get(apiPath.getAdPosition).then(res => {
+        this.bannerImage = res["S000007"]["resource"];
+        wx.setStorageSync("adPosition", JSON.stringify(this.bannerImage));
+      });
+    },
+    getOrderList() {
+      this.$http
+        .get(apiPath.getOrderList, {
+          lastId: this.lastId,
+          pageNumber: this.pageNumber
+        })
+        .then(res => {
+          this.orderList = [...this.orderList, ...res.data];
+          this.lastId = res.lastId;
+          this.isLast = res.isLast;
+        });
+    },
+    goOrderContent(id) {
+      wx.navigateTo({
+        url: "/pages/orderContent/main?id=" + id
+      });
+    },
+    loadingMore() {
+      if (!this.isLast) {
+        this.getOrderList();
+      } else {
+        wx.showToast({
+          title: "没有更多",
+          icon: "none",
+          duration: 800,
+          mask: true
+        });
+      }
+    }
+  },
+  mounted() {
+    if (wx.getStorageSync("adPosition")) {
+      this.bannerImage = JSON.parse(wx.getStorageSync("adPosition"));
+    } else {
+      this.getAdPosition();
+    }
+    this.getOrderList();
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.banner {
+  width: 100%;
+  height: 320rpx;
+}
+.orderList {
+  margin-top: 30rpx;
+  font-size: 32rpx;
+}
+.pub_card_item {
+  display: block;
+}
+.oneline {
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  width: 40%;
+  font-weight: 700;
+  line-height: 60rpx;
+}
+
+.price {
+  line-height: 60rpx;
+  font-size: 30rpx;
+  color: #ff7832;
+}
+text {
+  font-size: 28rpx;
+  line-height: 60rpx;
+
+  color: #888;
+  vertical-align: middle;
+  margin-left: 20rpx;
+}
+.time {
+  color: #b6b6b6;
+  line-height: 60rpx;
+
+  font-size: 28rpx;
+  margin-top: 15rpx;
+}
+.icon {
+  line-height: 60rpx;
+  margin-right: 10rpx;
+  font-size: 26rpx;
+}
+</style>

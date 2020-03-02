@@ -1,8 +1,8 @@
 {
+  "navigationBarTitleText": "职位详情",
   "usingComponents": {
-    "van-button": "/static/vant/button/index",
     "van-image": "/static/vant/image/index",
+    "van-button": "/static/vant/button/index",
     "van-icon": "/static/vant/icon/index"
-
   }
 }
