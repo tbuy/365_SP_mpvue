@@ -1,4 +1,4 @@
-<import src="/components/slots" /><template name="36c77d65">
+<import src="/components/slots" /><template name="8bb6ba5e">
   <view class="_div data-v-70be81cb card"><template name="default"></template>
     <view class="_div data-v-70be81cb card-item"><template data="{{...$root[$p], ...$root[$k], $root}}" is="{{$slotdefault || 'default'}}"></template></view>
   </view>

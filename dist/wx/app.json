@@ -4,7 +4,8 @@
     "pages/video/main",
     "pages/user/main",
     "pages/videoContent/main",
-    "pages/orderContent/main"
+    "pages/orderContent/main",
+    "pages/login/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

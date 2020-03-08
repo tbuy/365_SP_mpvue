@@ -1,5 +1,11 @@
 <script>
+import Vue from "vue";
 export default {
+  data() {
+    return {
+      userInfo: {}
+    };
+  },
   created() {
     // 调用API从本地缓存中获取数据
     /*
@@ -23,9 +29,113 @@ export default {
       logs.unshift(Date.now());
       mpvue.setStorageSync("logs", logs);
     }
+    Vue.prototype.$utils = {
+      showToast: this.showToast,
+      login: this.login,
+      getUserInfo: this.getUserInfo
+    };
   },
   log() {
     console.log(`log at:${Date.now()}`);
+  },
+  methods: {
+    showToast(msg) {
+      wx.showToast({
+        title: msg,
+        icon: "none",
+        duration: 800,
+        mask: true
+      });
+    },
+    //获取用户信息
+    getUserInfo() {
+      wx.getSetting({
+        success(res) {
+          if (res.authSetting["scope.userInfo"]) {
+            wx.getUserInfo({
+              success: val => {
+                console.log(val);
+              }
+            });
+          } else {
+            console.log(2);
+          }
+        }
+      });
+    },
+    //检查是否登录 登录返回ture 未登录返回false
+    checkLogin() {
+      if (wx.getStorageSync("accessToken")) {
+        // 检查 session_key 是否过期
+        wx.checkSession({
+          // session_key 未过期
+          success: () => {
+            // 直接从Storage中获取用户信息
+            if (wx.getStorageSync("userInfo")) {
+              this.userInfo = JSON.parse(wx.getStorageSync("userInfo"));
+              wx.setStorageSync("isLogin", true);
+            } else {
+              this.showToast("缓存信息缺失");
+              wx.setStorageSync("isLogin", false);
+            }
+          },
+          // session_key 过期
+          fail: () => {
+            this.showToast("缓存信息缺失");
+            wx.setStorageSync("isLogin", false);
+          }
+        });
+      } else {
+        wx.setStorageSync("isLogin", false);
+      }
+    },
+    login(phone, captcha, callback) {
+      wx.login({
+        success: loginRes => {
+          if (loginRes.code) {
+            /**
+             * 服务器登录接口
+             * phone 手机号
+             * captcha 验证码
+             * code 临时登录凭证
+             * rawData 用户非敏感信息
+             * signature 签名
+             * encryptedData 用户敏感信息
+             * iv 解密算法的向量
+             */
+            this.$http
+              .post(apiPath.login, {
+                phone: phone,
+                captcha: captcha,
+                code: loginRes.code,
+                rawData: this.detail.rawData,
+                signature: this.detail.signature,
+                encryptedData: this.detail.encryptedData,
+                iv: this.detail.iv
+              })
+              .then(res => {
+                if (res.code == 0) {
+                  let _userInfo = {
+                    id: res.data.id,
+                    name: res.data.name,
+                    icon: res.data.icon,
+                    phone: res.data.phone
+                  };
+                  wx.setStorageSync("userInfo", JSON.stringify(_userInfo));
+                  wx.setStorageSync("accessToken", res.data.access_token);
+                  wx.setStorageSync("isLogin", true);
+                  callback();
+                }
+              });
+          } else {
+            this.showToast("登录失败");
+          }
+        },
+        fail: () => {
+          this.showToast("登录失败");
+        }
+      });
+    }
   }
 };
 </script>
@@ -52,5 +162,8 @@ export default {
 }
 .pub-icon {
   color: rgb(105, 105, 105);
+}
+.pub-color {
+  color: #ff7832;
 }
 </style>

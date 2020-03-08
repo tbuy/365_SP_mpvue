@@ -11,8 +11,7 @@ fly.interceptors.request.use((request) => {
         "X-Tag": "flyio",
         'Content-Type': 'application/json',
     }
-    //打印出请求体
-    console.log(request.body)
+
     //终止请求
     //var err=new Error("xxx")
     //err.request=request
@@ -25,9 +24,23 @@ fly.interceptors.request.use((request) => {
 //添加响应拦截器，响应拦截器会在then/catch处理之前执行
 fly.interceptors.response.use(
     (response) => {
-        wx.hideLoading();
-        //只将请求结果的data字段返回
-        return response.data.data
+        if (response.data.code == 1) {
+            wx.showToast({
+                title: response.data.message,
+                icon: "none",
+                duration: 800,
+                mask: true
+            });
+            wx.hideLoading();
+
+        } else {
+            wx.hideLoading();
+
+            //只将请求结果的data字段返回
+            return response.data.data
+        }
+
+
     },
     (err) => {
         wx.hideLoading();

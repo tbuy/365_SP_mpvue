@@ -2,23 +2,30 @@
 // make sure to call Vue.use(Vuex) if using a module system
 import Vue from 'vue'
 import Vuex from 'vuex'
+import persistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 0
+    userInfo: {},
+    loginInfo: {}
   },
   mutations: {
-    increment: (state) => {
-      const obj = state
-      obj.count += 1
+    setUserInfo: (state, data) => {
+      state.userInfo = data
     },
-    decrement: (state) => {
-      const obj = state
-      obj.count -= 1
+    setLoginInfo: (state, data) => {
+      state.loginInfo = data
     }
-  }
+  },
+  plugins: [persistedState({
+    storage: {
+      getItem: key => wx.getStorageSync(key),
+      setItem: (key, val) => wx.setStorageSync(key, val),
+      removeItem: key => wx.clearStorage()
+    }
+  })]
 })
 
 export default store

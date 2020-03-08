@@ -25,6 +25,7 @@
 	"projectname": "mpvue-template",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"libVersion": "2.10.2",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -75,6 +76,12 @@
 					"name": "pages/orderContent/main",
 					"pathName": "pages/orderContent/main",
 					"query": "id=16",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/login/main",
+					"pathName": "pages/login/main",
 					"scene": null
 				}
 			]

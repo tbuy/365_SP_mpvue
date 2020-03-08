@@ -7,29 +7,26 @@
           height="100%"
           fit="cover"
           lazy-load
-          src="/static/images/avatar.png"
+          :src="userInfo.avatarUrl?userInfo.avatarUrl: '/static/images/avatar.png'"
         />
       </div>
       <div class="name">
-        <div>请点击登录</div>
+        <button open-type="getUserInfo" @getuserinfo="login" v-if="!userInfo.nickName">请点击登录</button>
+        <div v-else>{{userInfo.nickName}}</div>
       </div>
     </div>
     <div class="bottomContainer">
-      <div
-        v-for="item in menuList"
-        :key="item.id"
-        class="item"
-        @click="goItem(item)"
-      >
-        <van-icon :name="item.iconClass" class="pub-icon item-icon" />
+      <div v-for="item in menuList" :key="item.id" class="item" @click="goItem(item)">
+        <van-icon :name="item.iconClass" class="pub-icon item-icon"/>
         <div class="item-title">{{ item.title }}</div>
-        <van-icon name="arrow" class="pub-icon item-right" />
+        <van-icon name="arrow" class="pub-icon item-right"/>
       </div>
     </div>
   </div>
 </template>
 <script>
 import config from "../../config";
+import store from "./store";
 export default {
   data() {
     return {
@@ -70,7 +67,25 @@ export default {
       icon: ""
     };
   },
+  computed: {
+    userInfo: () => store.state.userInfo
+  },
   methods: {
+    login(e) {
+      let _mpData = e.mp.detail;
+      if (_mpData.encryptedData) {
+        store.commit("setUserInfo", _mpData.userInfo);
+        store.commit("setLoginInfo", {
+          encryptedData: _mpData.encryptedData,
+          iv: _mpData.iv,
+          rawData: _mpData.rawData,
+          signature: _mpData.signature
+        });
+        wx.navigateTo({ url: "/pages/login/main" });
+      } else {
+        this.$utils.showToast("已拒绝");
+      }
+    },
     //退出登录
     logout() {
       wx.clearStorageSync();
@@ -86,12 +101,7 @@ export default {
           phoneNumber: config.phone
         });
       } else {
-        wx.showToast({
-          title: "敬请期待",
-          icon: "none",
-          duration: 800,
-          mask: true
-        });
+        this.$utils.showToast("敬请期待");
       }
     }
   }

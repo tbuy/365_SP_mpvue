@@ -1,33 +1,33 @@
 require("../../common/manifest.js")
 require("../../common/vendor.js")
-global.webpackJsonpMpvue([3],{
+global.webpackJsonpMpvue([1],{
 
-/***/ 19:
+/***/ 36:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(37);
 
 
 
-const app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_1__index__["a" /* default */]);
+var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_1__index__["a" /* default */]);
 app.$mount();
 
 /***/ }),
 
-/***/ 20:
+/***/ 37:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_mpvue_loader_lib_template_compiler_index_id_data_v_20c0a6c7_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_fileExt_template_wxml_script_js_style_wxss_platform_wx_node_modules_mpvue_loader_lib_selector_type_template_index_0_index_vue__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_mpvue_loader_lib_template_compiler_index_id_data_v_20c0a6c7_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_fileExt_template_wxml_script_js_style_wxss_platform_wx_node_modules_mpvue_loader_lib_selector_type_template_index_0_index_vue__ = __webpack_require__(42);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(45)
+  __webpack_require__(38)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
@@ -72,12 +72,20 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 22:
+/***/ 38:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 39:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__config__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(40);
 //
 //
 //
@@ -104,14 +112,11 @@ if (false) {(function () {
 //
 //
 //
-//
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  data() {
+  data: function data() {
     return {
       menuList: [
       //   {
@@ -146,28 +151,45 @@ if (false) {(function () {
       icon: ""
     };
   },
+
+  computed: {
+    userInfo: function userInfo() {
+      return __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].state.userInfo;
+    }
+  },
   methods: {
+    login: function login(e) {
+      var _mpData = e.mp.detail;
+      if (_mpData.encryptedData) {
+        __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].commit("setUserInfo", _mpData.userInfo);
+        __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].commit("setLoginInfo", {
+          encryptedData: _mpData.encryptedData,
+          iv: _mpData.iv,
+          rawData: _mpData.rawData,
+          signature: _mpData.signature
+        });
+        wx.navigateTo({ url: "/pages/login/main" });
+      } else {
+        this.$utils.showToast("已拒绝");
+      }
+    },
+
     //退出登录
-    logout() {
+    logout: function logout() {
       wx.clearStorageSync();
       app.showLoading();
-      setTimeout(() => {
+      setTimeout(function () {
         app.hideLoading(0);
         wx.reLaunch({ url: "/pages/user/user" });
       }, 800);
     },
-    goItem(item) {
+    goItem: function goItem(item) {
       if (item.id == 5) {
         wx.makePhoneCall({
           phoneNumber: __WEBPACK_IMPORTED_MODULE_0__config___default.a.phone
         });
       } else {
-        wx.showToast({
-          title: "敬请期待",
-          icon: "none",
-          duration: 800,
-          mask: true
-        });
+        this.$utils.showToast("敬请期待");
       }
     }
   }
@@ -175,27 +197,55 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 45:
-/***/ (function(module, exports) {
+/***/ 40:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex_persistedstate__ = __webpack_require__(41);
+// https://vuex.vuejs.org/zh-cn/intro.html
+// make sure to call Vue.use(Vuex) if using a module system
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+
+var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+  state: {
+    userInfo: {},
+    loginInfo: {}
+  },
+  mutations: {
+    setUserInfo: function setUserInfo(state, data) {
+      state.userInfo = data;
+    },
+    setLoginInfo: function setLoginInfo(state, data) {
+      state.loginInfo = data;
+    }
+  },
+  plugins: [Object(__WEBPACK_IMPORTED_MODULE_2_vuex_persistedstate__["a" /* default */])({
+    storage: {
+      getItem: function getItem(key) {
+        return wx.getStorageSync(key);
+      },
+      setItem: function setItem(key, val) {
+        return wx.setStorageSync(key, val);
+      },
+      removeItem: function removeItem(key) {
+        return wx.clearStorage();
+      }
+    }
+  })]
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (store);
 
 /***/ }),
 
-/***/ 46:
-/***/ (function(module, exports) {
-
-module.exports = {
-  version: "0.0.0",
-  apiPath: '',
-  appid: "",
-  requireBindMobile: true, // 是否强制绑定手机号码才能使用
-  phone: "4006625365" //客服电话
-};
-
-/***/ }),
-
-/***/ 47:
+/***/ 42:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -212,17 +262,27 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "height": "100%",
       "fit": "cover",
       "lazy-load": "",
-      "src": "/static/images/avatar.png",
+      "src": _vm.userInfo.avatarUrl ? _vm.userInfo.avatarUrl : '/static/images/avatar.png',
       "mpcomid": '0'
     }
-  })], 1), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "name"
+  }, [(!_vm.userInfo.nickName) ? _c('button', {
+    attrs: {
+      "open-type": "getUserInfo",
+      "eventid": '0'
+    },
+    on: {
+      "getuserinfo": _vm.login
+    }
+  }, [_vm._v("请点击登录")]) : _c('div', [_vm._v(_vm._s(_vm.userInfo.nickName))])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "bottomContainer"
   }, _vm._l((_vm.menuList), function(item, index) {
     return _c('div', {
       key: item.id,
       staticClass: "item",
       attrs: {
-        "eventid": '0_' + index
+        "eventid": '1_' + index
       },
       on: {
         "click": function($event) {
@@ -246,11 +306,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     })], 1)
   }))])
 }
-var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "name"
-  }, [_c('div', [_vm._v("请点击登录")])])
-}]
+var staticRenderFns = []
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -263,4 +319,4 @@ if (false) {
 
 /***/ })
 
-},[19]);
+},[36]);

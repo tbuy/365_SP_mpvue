@@ -22,3 +22,6 @@
 .pub-icon {
   color: rgb(105, 105, 105);
 }
+.pub-color {
+  color: #ff7832;
+}

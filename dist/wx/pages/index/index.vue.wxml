@@ -1,4 +1,4 @@
-<template name="618f0d06">
+<import src="/components/scroll.vue.wxml" /><template name="fb8ef11c">
   <view class="_div data-v-0c52e028">
     <swiper indicator-dots="{{options.indicatorDots}}" autoplay="{{options.autoplay}}" interval="{{options.interval}}" duration="{{options.duration}}" class="_swiper data-v-0c52e028">
       <view class="_div data-v-0c52e028 banner">
@@ -7,26 +7,6 @@
         </swiper-item>
       </view>
     </swiper>
-    <view class="_div data-v-0c52e028 orderList">
-      <scroll bindloadingMore="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_scroll data-v-0c52e028">
-        <view class="_div data-v-0c52e028 pub_card" wx:key="item.id" key="{{item.id}}" bindtap="handleProxy" data-eventid="{{'0_'+index}}" data-comkey="{{$k}}" wx:for="{{orderList}}" wx:for-index="index" wx:for-item="item">
-          <view class="_div data-v-0c52e028 pub_card_item">
-            <view class="_div data-v-0c52e028 oneline">
-              <view class="_div data-v-0c52e028 title">{{ item.work_type || "面议" }}</view>
-              <view class="_div data-v-0c52e028 price">{{ item.wage || "面议" }}</view>
-            </view>
-            <view class="_div data-v-0c52e028 text">
-              <van-icon name="clock-o" class="_van-icon data-v-0c52e028 pub-icon icon"></van-icon>{{ item.service_duration || "面议"
-            }}
-            </view>
-            <view class="_div data-v-0c52e028 text">
-              <van-icon name="location-o" class="_van-icon data-v-0c52e028 pub-icon icon"></van-icon>{{ item.service_address || "面议"
-            }}
-            </view>
-            <view class="_div data-v-0c52e028 time">{{ item.created_at }}</view>
-          </view>
-        </view>
-      </scroll>
-    </view>
+    <view class="_div data-v-0c52e028 orderList"><template bindloadingMore="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'4'], $root, $for:{default:'data-v-0c52e028-default-4'},$slotdefault:'data-v-0c52e028-default-4'}}" is="40a97c64"></template></view>
   </view>
 </template>
