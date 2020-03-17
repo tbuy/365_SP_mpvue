@@ -5,11 +5,11 @@
       <div class="price">{{ order.wage || "面议" }}</div>
       <div class="public">
         <div class="pub-content">
-          <van-icon name="clock-o" class="pub-icon icon" />
+          <van-icon name="clock-o" class="pub-icon icon"/>
           <text>{{ order.service_duration || "面议" }}</text>
         </div>
         <div class="pub-content">
-          <van-icon name="location-o" class="pub-icon icon" />
+          <van-icon name="location-o" class="pub-icon icon"/>
           <text>{{ order.service_address || "面议" }}</text>
         </div>
       </div>
@@ -17,16 +17,13 @@
     <div class="detail-title" v-if="order.order_details">岗位职责</div>
     <div class="detail">{{ order.order_details }}</div>
     <div class="button">
-      <van-button type="primary" size="large" @click="call" color="#ff7832"
-        >立即抢单</van-button
-      >
+      <van-button type="primary" size="large" @click="call" color="#ff7832">立即抢单</van-button>
     </div>
   </div>
 </template>
 <script>
-import apiPath from "../../request/apiPath.js";
-import config from "../../config";
 import card from "../../components/card.vue";
+import { otherService } from "../../request";
 
 export default {
   data() {
@@ -39,19 +36,11 @@ export default {
     card
   },
   methods: {
-    getOrder(id) {
-      this.$http
-        .get(apiPath.getOrder, {
-          id: this.id
-        })
-        .then(res => {
-          this.order = res;
-        });
+    async getOrder() {
+      this.order = await otherService.getOrder(this.id);
     },
     call() {
-      wx.makePhoneCall({
-        phoneNumber: this.order.agent_manager_phone || config.phone
-      });
+      otherService.makePhoneCall(this.order.agent_manager_phone);
     }
   },
   mounted() {

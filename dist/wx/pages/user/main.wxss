@@ -54,3 +54,18 @@
 .item-right.data-v-20c0a6c7 {
   margin-right: 50rpx;
 }
+.logout.data-v-20c0a6c7 {
+  position: fixed;
+  bottom: 40rpx;
+  left: 40rpx;
+  right: 40rpx;
+}
+button.data-v-20c0a6c7 {
+  background-color: #fff;
+  color: rgb(87, 87, 87);
+  font-size: 34rpx;
+  line-height: 240rpx;
+}
+button.data-v-20c0a6c7:after {
+  border: 0 none !important;
+}

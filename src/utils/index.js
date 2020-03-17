@@ -37,9 +37,20 @@ function formatDate(time) {
 function wordSubstring(val, length) {
   return val.length > length ? val.substring(0, length - 1) + "..." : val;
 }
+
+function showToast(msg) {
+  wx.showToast({
+    title: msg,
+    icon: "none",
+    duration: 800,
+    mask: true
+  });
+}
+
 export default {
   formatNumber,
   formatTime,
   formatDate,
-  wordSubstring
+  wordSubstring,
+  showToast
 }

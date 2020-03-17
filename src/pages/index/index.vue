@@ -8,13 +8,7 @@
     >
       <div class="banner">
         <swiper-item v-for="item in bannerImage" :key="item.id">
-          <van-image
-            width="100%"
-            height="100%"
-            fit="cover"
-            lazy-load
-            :src="item.url"
-          ></van-image>
+          <van-image width="100%" height="100%" fit="cover" lazy-load :src="item.url"></van-image>
         </swiper-item>
       </div>
     </swiper>
@@ -32,13 +26,15 @@
               <div class="price">{{ item.wage || "面议" }}</div>
             </div>
             <div class="text">
-              <van-icon name="clock-o" class="pub-icon icon" />{{
-                item.service_duration || "面议"
+              <van-icon name="clock-o" class="pub-icon icon"/>
+              {{
+              item.service_duration || "面议"
               }}
             </div>
             <div class="text">
-              <van-icon name="location-o" class="pub-icon icon" />{{
-                item.service_address || "面议"
+              <van-icon name="location-o" class="pub-icon icon"/>
+              {{
+              item.service_address || "面议"
               }}
             </div>
             <div class="time">{{ item.created_at }}</div>
@@ -50,10 +46,9 @@
 </template>
 
 <script>
-import apiPath from "../../request/apiPath.js";
-import utils from "../../utils/index";
 import card from "../../components/card.vue";
 import scroll from "../../components/scroll.vue";
+import { otherService } from "../../request";
 export default {
   data() {
     return {
@@ -80,23 +75,15 @@ export default {
   },
 
   methods: {
-    getAdPosition() {
-      this.$http.get(apiPath.getAdPosition).then(res => {
-        this.bannerImage = res["S000007"]["resource"];
-        wx.setStorageSync("adPosition", JSON.stringify(this.bannerImage));
-      });
+    async getAdPosition() {
+      let _data = await otherService.getAdPosition();
+      this.bannerImage = _data["S000007"]["resource"];
     },
-    getOrderList() {
-      this.$http
-        .get(apiPath.getOrderList, {
-          lastId: this.lastId,
-          pageNumber: this.pageNumber
-        })
-        .then(res => {
-          this.orderList = [...this.orderList, ...res.data];
-          this.lastId = res.lastId;
-          this.isLast = res.isLast;
-        });
+    async getOrderList() {
+      let _data = await otherService.getOrderList(this.lastId, this.pageNumber);
+      this.orderList = [...this.orderList, ..._data.data];
+      this.lastId = _data.lastId;
+      this.isLast = _data.isLast;
     },
     goOrderContent(id) {
       wx.navigateTo({
@@ -107,21 +94,12 @@ export default {
       if (!this.isLast) {
         this.getOrderList();
       } else {
-        wx.showToast({
-          title: "没有更多",
-          icon: "none",
-          duration: 800,
-          mask: true
-        });
+        this.$utils.showToast("没有更多");
       }
     }
   },
   mounted() {
-    if (wx.getStorageSync("adPosition")) {
-      this.bannerImage = JSON.parse(wx.getStorageSync("adPosition"));
-    } else {
-      this.getAdPosition();
-    }
+    this.getAdPosition();
     this.getOrderList();
   }
 };

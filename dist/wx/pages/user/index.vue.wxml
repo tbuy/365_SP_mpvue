@@ -15,5 +15,8 @@
         <van-icon name="arrow" class="_van-icon data-v-20c0a6c7 pub-icon item-right"></van-icon>
       </view>
     </view>
+    <view class="_div data-v-20c0a6c7 logout" wx:if="{{userInfo.nickName}}">
+      <van-button plain type="primary" size="large" bindtap="handleProxy" color="#ccc" data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_van-button data-v-20c0a6c7">退出登录</van-button>
+    </view>
   </view>
 </template>

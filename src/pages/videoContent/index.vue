@@ -15,19 +15,13 @@
       </div>
       <div class="second">
         <div class="title">简介</div>
-        <van-image
-          width="100%"
-          height="100%"
-          fit="cover"
-          lazy-load
-          :src="video.video_detail_url"
-        />
+        <van-image width="100%" height="100%" fit="cover" lazy-load :src="video.video_detail_url"/>
       </div>
     </div>
   </div>
 </template>
 <script>
-import apiPath from "../../request/apiPath.js";
+import { otherService } from "../../request";
 
 export default {
   data() {
@@ -37,14 +31,8 @@ export default {
     };
   },
   methods: {
-    getVideo(id) {
-      this.$http
-        .get(apiPath.getVideo, {
-          id: this.id
-        })
-        .then(res => {
-          this.video = res;
-        });
+    async getVideo() {
+      this.video = await otherService.getVideo(this.id);
     }
   },
   mounted() {

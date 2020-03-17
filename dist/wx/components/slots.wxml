@@ -7,11 +7,13 @@
         <view class="_div data-v-0c52e028 price">{{ item.wage || "面议" }}</view>
       </view>
       <view class="_div data-v-0c52e028 text">
-        <van-icon name="clock-o" class="_van-icon data-v-0c52e028 pub-icon icon"></van-icon>{{ item.service_duration || "面议"
+        <van-icon name="clock-o" class="_van-icon data-v-0c52e028 pub-icon icon"></van-icon>
+        {{ item.service_duration || "面议"
             }}
       </view>
       <view class="_div data-v-0c52e028 text">
-        <van-icon name="location-o" class="_van-icon data-v-0c52e028 pub-icon icon"></van-icon>{{ item.service_address || "面议"
+        <van-icon name="location-o" class="_van-icon data-v-0c52e028 pub-icon icon"></van-icon>
+        {{ item.service_address || "面议"
             }}
       </view>
       <view class="_div data-v-0c52e028 time">{{ item.created_at }}</view>

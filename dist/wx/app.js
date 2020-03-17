@@ -10,37 +10,42 @@ global.webpackJsonpMpvue([7],[
 /* 6 */,
 /* 7 */,
 /* 8 */,
-/* 9 */
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__request_request__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(9);
+
+
 
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.productionTip = false;
 __WEBPACK_IMPORTED_MODULE_1__App__["a" /* default */].mpType = 'app';
 
-
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$http = __WEBPACK_IMPORTED_MODULE_2__request_request__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$utils = __WEBPACK_IMPORTED_MODULE_2__utils__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$store = __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */];
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_1__App__["a" /* default */]);
 app.$mount();
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(14);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(11)
+  __webpack_require__(13)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
@@ -83,13 +88,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -103,49 +108,9 @@ if (false) {(function () {
       userInfo: {}
     };
   },
-  created: function created() {
-    // 调用API从本地缓存中获取数据
-    /*
-     * 平台 api 差异的处理方式:  api 方法统一挂载到 mpvue 名称空间, 平台判断通过 mpvuePlatform 特征字符串
-     * 微信：mpvue === wx, mpvuePlatform === 'wx'
-     * 头条：mpvue === tt, mpvuePlatform === 'tt'
-     * 百度：mpvue === swan, mpvuePlatform === 'swan'
-     * 支付宝(蚂蚁)：mpvue === my, mpvuePlatform === 'my'
-     */
-
-    var logs = void 0;
-    if (global.mpvuePlatform === "my") {
-      logs = global.mpvue.getStorageSync({ key: "logs" }).data || [];
-      logs.unshift(Date.now());
-      global.mpvue.setStorageSync({
-        key: "logs",
-        data: logs
-      });
-    } else {
-      logs = global.mpvue.getStorageSync("logs") || [];
-      logs.unshift(Date.now());
-      global.mpvue.setStorageSync("logs", logs);
-    }
-    __WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$utils = {
-      showToast: this.showToast,
-      login: this.login,
-      getUserInfo: this.getUserInfo
-    };
-  },
-  log: function log() {
-    console.log("log at:" + Date.now());
-  },
+  created: function created() {},
 
   methods: {
-    showToast: function showToast(msg) {
-      wx.showToast({
-        title: msg,
-        icon: "none",
-        duration: 800,
-        mask: true
-      });
-    },
-
     //获取用户信息
     getUserInfo: function getUserInfo() {
       wx.getSetting({
@@ -190,107 +155,9 @@ if (false) {(function () {
       } else {
         wx.setStorageSync("isLogin", false);
       }
-    },
-    login: function login(phone, captcha, callback) {
-      var _this2 = this;
-
-      wx.login({
-        success: function success(loginRes) {
-          if (loginRes.code) {
-            /**
-             * 服务器登录接口
-             * phone 手机号
-             * captcha 验证码
-             * code 临时登录凭证
-             * rawData 用户非敏感信息
-             * signature 签名
-             * encryptedData 用户敏感信息
-             * iv 解密算法的向量
-             */
-            _this2.$http.post(apiPath.login, {
-              phone: phone,
-              captcha: captcha,
-              code: loginRes.code,
-              rawData: _this2.detail.rawData,
-              signature: _this2.detail.signature,
-              encryptedData: _this2.detail.encryptedData,
-              iv: _this2.detail.iv
-            }).then(function (res) {
-              if (res.code == 0) {
-                var _userInfo = {
-                  id: res.data.id,
-                  name: res.data.name,
-                  icon: res.data.icon,
-                  phone: res.data.phone
-                };
-                wx.setStorageSync("userInfo", JSON.stringify(_userInfo));
-                wx.setStorageSync("accessToken", res.data.access_token);
-                wx.setStorageSync("isLogin", true);
-                callback();
-              }
-            });
-          } else {
-            _this2.showToast("登录失败");
-          }
-        },
-        fail: function fail() {
-          _this2.showToast("登录失败");
-        }
-      });
     }
   }
 });
 
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var Fly = __webpack_require__(14);
-var fly = new Fly();
-//添加请求拦截器
-fly.interceptors.request.use(function (request) {
-    wx.showLoading({
-        title: "加载中",
-        mask: true
-    });
-    //给所有请求添加自定义header
-    request.headers = {
-        "X-Tag": "flyio",
-        'Content-Type': 'application/json'
-
-        //终止请求
-        //var err=new Error("xxx")
-        //err.request=request
-        //return Promise.reject(new Error(""))
-
-        //可以显式返回request, 也可以不返回，没有返回值时拦截器中默认返回request
-    };return request;
-});
-
-//添加响应拦截器，响应拦截器会在then/catch处理之前执行
-fly.interceptors.response.use(function (response) {
-    if (response.data.code == 1) {
-        wx.showToast({
-            title: response.data.message,
-            icon: "none",
-            duration: 800,
-            mask: true
-        });
-        wx.hideLoading();
-    } else {
-        wx.hideLoading();
-
-        //只将请求结果的data字段返回
-        return response.data.data;
-    }
-}, function (err) {
-    wx.hideLoading();
-    //发生网络错误后会走到这里
-    return Promise.resolve(err);
-});
-
-/* harmony default export */ __webpack_exports__["a"] = (fly);
-
 /***/ })
-],[9]);
+],[11]);

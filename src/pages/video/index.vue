@@ -5,17 +5,11 @@
         class="pub_card"
         v-for="item in videoList"
         :key="item.id"
-        @click="goVideoContent(id)"
+        @click="goVideoContent(item.id)"
       >
         <div class="pub_card_item">
           <div class="leftImage">
-            <van-image
-              width="100%"
-              height="100%"
-              fit="cover"
-              lazy-load
-              :src="item.picture_url"
-            />
+            <van-image width="100%" height="100%" fit="cover" lazy-load :src="item.picture_url"/>
           </div>
           <div class="rightContent">
             <div class="title">{{ item.name }}</div>
@@ -30,8 +24,8 @@
 <script>
 import card from "../../components/card.vue";
 import scroll from "../../components/scroll.vue";
-import apiPath from "../../request/apiPath.js";
-import utils from "../../utils/index";
+import { otherService } from "../../request";
+
 export default {
   data() {
     return {
@@ -53,28 +47,17 @@ export default {
         url: "/pages/videoContent/main?id=" + id
       });
     },
-    getVideoList() {
-      this.$http
-        .get(apiPath.getVideoList, {
-          lastId: this.lastId,
-          pageNumber: this.pageNumber
-        })
-        .then(res => {
-          this.videoList = [...this.videoList, ...res.data];
-          this.lastId = res.lastId;
-          this.isLast = res.isLast;
-        });
+    async getVideoList() {
+      let _data = await otherService.getVideoList(this.lastId, this.pageNumber);
+      this.videoList = [...this.videoList, ..._data.data];
+      this.lastId = _data.lastId;
+      this.isLast = _data.isLast;
     },
     loadingMore() {
       if (!this.isLast) {
         this.getVideoList();
       } else {
-        wx.showToast({
-          title: "没有更多",
-          icon: "none",
-          duration: 800,
-          mask: true
-        });
+        this.$utils.showToast("没有更多");
       }
     }
   },

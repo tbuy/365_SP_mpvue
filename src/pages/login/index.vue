@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import apiPath from "../../request/apiPath.js";
+import { loginService } from "../../request";
 
 export default {
   data() {
@@ -64,8 +64,7 @@ export default {
       } else if (this.captcha == "" || this.captcha < 6) {
         this.$utils.showToast("请输入正确验证码");
       } else {
-        app.globalLogin(e.detail.value.phone, e.detail.value.captcha, () => {
-          app.showInfo("登录成功");
+        loginService.login(this.phone, this.captcha, () => {
           wx.reLaunch({
             url: "/pages/user/user"
           });
@@ -80,23 +79,21 @@ export default {
       if (this.phone.length < 11) {
         this.$utils.showToast("请输入正确手机号");
       } else {
-        this.$http.get(apiPath.getCaptcha, { phone: this.phone }).then(res => {
-          if (res.code == 0) {
-            this.isShowTime = true;
-            let oldTime = new Date().getTime();
-            let newTime, time, timer;
-            timer = setInterval(() => {
-              newTime = new Date().getTime();
-              time = Math.round((newTime - oldTime) / 1000);
-              if (time < 60) {
-                this.time = 60 - time;
-              } else {
-                clearInterval(timer);
-                this.time = 60;
-                this.isShowTime = false;
-              }
-            }, 500);
-          }
+        loginService.getCaptcha(this.phone, () => {
+          this.isShowTime = true;
+          let oldTime = new Date().getTime();
+          let newTime, time, timer;
+          timer = setInterval(() => {
+            newTime = new Date().getTime();
+            time = Math.round((newTime - oldTime) / 1000);
+            if (time < 60) {
+              this.time = 60 - time;
+            } else {
+              clearInterval(timer);
+              this.time = 60;
+              this.isShowTime = false;
+            }
+          }, 500);
         });
       }
     },

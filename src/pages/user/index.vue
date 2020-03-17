@@ -11,7 +11,7 @@
         />
       </div>
       <div class="name">
-        <button open-type="getUserInfo" @getuserinfo="login" v-if="!userInfo.nickName">请点击登录</button>
+        <button open-type="getUserInfo" @getuserinfo="getUserInfo" v-if="!userInfo.nickName">请点击登录</button>
         <div v-else>{{userInfo.nickName}}</div>
       </div>
     </div>
@@ -22,11 +22,14 @@
         <van-icon name="arrow" class="pub-icon item-right"/>
       </div>
     </div>
+    <div class="logout" v-if="userInfo.nickName">
+      <van-button plain type="primary" size="large" @click="logout" color="#ccc">退出登录</van-button>
+    </div>
   </div>
 </template>
 <script>
-import config from "../../config";
-import store from "./store";
+import { store } from "../../store";
+import { loginService, otherService } from "../../request";
 export default {
   data() {
     return {
@@ -68,38 +71,35 @@ export default {
     };
   },
   computed: {
-    userInfo: () => store.state.userInfo
+    userInfo: () => store.state.userInfo,
+    isLogin: () => store.state.isLogin
   },
   methods: {
-    login(e) {
+    getUserInfo(e) {
       let _mpData = e.mp.detail;
       if (_mpData.encryptedData) {
-        store.commit("setUserInfo", _mpData.userInfo);
-        store.commit("setLoginInfo", {
-          encryptedData: _mpData.encryptedData,
-          iv: _mpData.iv,
-          rawData: _mpData.rawData,
-          signature: _mpData.signature
+        loginService.getUserInfo(_mpData);
+        wx.navigateTo({
+          url: "/pages/login/main"
         });
-        wx.navigateTo({ url: "/pages/login/main" });
       } else {
         this.$utils.showToast("已拒绝");
       }
     },
-    //退出登录
     logout() {
-      wx.clearStorageSync();
-      app.showLoading();
+      console.log(this.$store);
+      wx.clearStorage();
+      wx.showLoading();
       setTimeout(() => {
-        app.hideLoading(0);
-        wx.reLaunch({ url: "/pages/user/user" });
+        wx.hideLoading();
+        // wx.reLaunch({
+        //   url: "/pages/user/user"
+        // });
       }, 800);
     },
     goItem(item) {
       if (item.id == 5) {
-        wx.makePhoneCall({
-          phoneNumber: config.phone
-        });
+        otherService.makePhoneCall("");
       } else {
         this.$utils.showToast("敬请期待");
       }
@@ -161,5 +161,20 @@ export default {
 }
 .item-right {
   margin-right: 50rpx;
+}
+.logout {
+  position: fixed;
+  bottom: 40rpx;
+  left: 40rpx;
+  right: 40rpx;
+}
+button {
+  background-color: #fff;
+  color: rgb(87, 87, 87);
+  font-size: 34rpx;
+  line-height: 240rpx;
+}
+button:after {
+  border: 0 none !important;
 }
 </style>
