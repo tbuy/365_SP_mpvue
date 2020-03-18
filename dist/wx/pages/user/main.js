@@ -2,14 +2,14 @@ require("../../common/manifest.js")
 require("../../common/vendor.js")
 global.webpackJsonpMpvue([3],{
 
-/***/ 40:
+/***/ 125:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(126);
 
 
 
@@ -18,18 +18,18 @@ app.$mount();
 
 /***/ }),
 
-/***/ 41:
+/***/ 126:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_mpvue_loader_lib_template_compiler_index_id_data_v_20c0a6c7_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_fileExt_template_wxml_script_js_style_wxss_platform_wx_node_modules_mpvue_loader_lib_selector_type_template_index_0_index_vue__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_mpvue_loader_lib_template_compiler_index_id_data_v_20c0a6c7_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_fileExt_template_wxml_script_js_style_wxss_platform_wx_node_modules_mpvue_loader_lib_selector_type_template_index_0_index_vue__ = __webpack_require__(129);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(42)
+  __webpack_require__(127)
 }
-var normalizeComponent = __webpack_require__(1)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 
 /* template */
@@ -72,19 +72,19 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 42:
+/***/ 127:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 43:
+/***/ 128:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__request__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__request__ = __webpack_require__(10);
 //
 //
 //
@@ -175,14 +175,10 @@ if (false) {(function () {
       }
     },
     logout: function logout() {
-      console.log(this.$store);
-      wx.clearStorage();
       wx.showLoading();
       setTimeout(function () {
+        __WEBPACK_IMPORTED_MODULE_1__request__["a" /* loginService */].logout();
         wx.hideLoading();
-        // wx.reLaunch({
-        //   url: "/pages/user/user"
-        // });
       }, 800);
     },
     goItem: function goItem(item) {
@@ -197,7 +193,7 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 44:
+/***/ 129:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -214,12 +210,12 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "height": "100%",
       "fit": "cover",
       "lazy-load": "",
-      "src": _vm.userInfo.avatarUrl ? _vm.userInfo.avatarUrl : '/static/images/avatar.png',
+      "src": _vm.userInfo.icon ? _vm.userInfo.icon : '/static/images/avatar.png',
       "mpcomid": '0'
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "name"
-  }, [(!_vm.userInfo.nickName) ? _c('button', {
+  }, [(!_vm.userInfo.phone) ? _c('button', {
     attrs: {
       "open-type": "getUserInfo",
       "eventid": '0'
@@ -227,7 +223,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     on: {
       "getuserinfo": _vm.getUserInfo
     }
-  }, [_vm._v("请点击登录")]) : _c('div', [_vm._v(_vm._s(_vm.userInfo.nickName))])], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("请点击登录")]) : _c('div', [_vm._v(_vm._s(_vm.userInfo.name || _vm.userInfo.phone))])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "bottomContainer"
   }, _vm._l((_vm.menuList), function(item, index) {
     return _c('div', {
@@ -256,7 +252,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
         "mpcomid": '2_' + index
       }
     })], 1)
-  })), _vm._v(" "), (_vm.userInfo.nickName) ? _c('div', {
+  })), _vm._v(" "), (_vm.userInfo.phone) ? _c('div', {
     staticClass: "logout"
   }, [_c('van-button', {
     attrs: {
@@ -285,4 +281,4 @@ if (false) {
 
 /***/ })
 
-},[40]);
+},[125]);

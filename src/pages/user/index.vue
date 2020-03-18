@@ -7,12 +7,12 @@
           height="100%"
           fit="cover"
           lazy-load
-          :src="userInfo.avatarUrl?userInfo.avatarUrl: '/static/images/avatar.png'"
+          :src="userInfo.icon?userInfo.icon: '/static/images/avatar.png'"
         />
       </div>
       <div class="name">
-        <button open-type="getUserInfo" @getuserinfo="getUserInfo" v-if="!userInfo.nickName">请点击登录</button>
-        <div v-else>{{userInfo.nickName}}</div>
+        <button open-type="getUserInfo" @getuserinfo="getUserInfo" v-if="!userInfo.phone">请点击登录</button>
+        <div v-else>{{userInfo.name||userInfo.phone}}</div>
       </div>
     </div>
     <div class="bottomContainer">
@@ -22,7 +22,7 @@
         <van-icon name="arrow" class="pub-icon item-right"/>
       </div>
     </div>
-    <div class="logout" v-if="userInfo.nickName">
+    <div class="logout" v-if="userInfo.phone">
       <van-button plain type="primary" size="large" @click="logout" color="#ccc">退出登录</van-button>
     </div>
   </div>
@@ -87,14 +87,10 @@ export default {
       }
     },
     logout() {
-      console.log(this.$store);
-      wx.clearStorage();
       wx.showLoading();
       setTimeout(() => {
+        loginService.logout();
         wx.hideLoading();
-        // wx.reLaunch({
-        //   url: "/pages/user/user"
-        // });
       }, 800);
     },
     goItem(item) {

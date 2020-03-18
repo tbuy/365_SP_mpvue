@@ -41,6 +41,7 @@
 </template>
 <script>
 import { loginService } from "../../request";
+import { store } from "../../store";
 
 export default {
   data() {
@@ -54,21 +55,23 @@ export default {
   computed: {
     isHeightlight() {
       return this.phone > 0 && this.captcha > 0 ? true : false;
-    }
+    },
+    isLogin: () => store.state.isLogin
   },
   methods: {
-    formSubmit(e) {
+    async formSubmit(e) {
       let regPhone = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/;
       if (!regPhone.test(this.phone)) {
         this.$utils.showToast("请输入正确手机号");
       } else if (this.captcha == "" || this.captcha < 6) {
         this.$utils.showToast("请输入正确验证码");
       } else {
-        loginService.login(this.phone, this.captcha, () => {
-          wx.reLaunch({
-            url: "/pages/user/user"
-          });
-        });
+        await loginService.login(this.phone, this.captcha);
+        if (this.isLogin) {
+          setTimeout(() => {
+            wx.navigateBack();
+          }, 1000);
+        }
       }
     },
 
@@ -103,6 +106,10 @@ export default {
     captchaInput(e) {
       this.captcha = e.mp.detail;
     }
+  },
+  mounted() {
+    this.phone = "";
+    this.captchav = "";
   }
 };
 </script>
@@ -121,7 +128,7 @@ export default {
 .getCode {
   position: absolute;
   right: 30rpx;
-  top: 20rpx;
+  top: 30rpx;
   color: #ccc;
   font-size: 26rpx;
   z-index: 2;

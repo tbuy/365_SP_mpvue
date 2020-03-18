@@ -17,7 +17,7 @@ function getUserInfo(data) {
     });
 }
 //登录
-function login(phone, captcha, fn) {
+function login(phone, captcha) {
     wx.login({
         success: (loginRes) => {
             if (loginRes.code) {
@@ -31,34 +31,23 @@ function login(phone, captcha, fn) {
                  * encryptedData 用户敏感信息
                  * iv 解密算法的向量
                  */
-                wx.request({
-                    url: apiPath.login,
-                    method: 'post',
-                    data: {
-                        phone: phone,
-                        captcha: captcha,
-                        code: loginRes.code,
-                        rawData: store.state.loginInfo.rawData,
-                        signature: store.state.loginInfo.signature,
-                        encryptedData: store.state.loginInfo.encryptedData,
-                        iv: store.state.loginInfo.iv
-                    },
-                    success: (res) => {
-                        utils.showToast('登录成功');
-                        store.commit(types.SET_USER_INFO, {
-                            name: res.name,
-                            phone: res.phone,
-                            icon: res.icon,
-                            id: res.id
-                        });
-                        store.commit(types.SET_IS_LOGIN, true);
-                        fn()
-                    },
-                    fail: (err) => {
-                        utils.showToast('登录失败1');
-                    }
+                request.post(apiPath.login, {
+                    phone: phone,
+                    captcha: captcha,
+                    code: loginRes.code,
+                    rawData: store.state.loginInfo.rawData,
+                    signature: store.state.loginInfo.signature,
+                    encryptedData: store.state.loginInfo.encryptedData,
+                    iv: store.state.loginInfo.iv
+                }).then(res => {
+                    store.commit(types.SET_USER_INFO, {
+                        name: res.name,
+                        phone: res.phone,
+                        icon: res.icon,
+                        id: res.id
+                    });
+                    store.commit(types.SET_IS_LOGIN, true);
                 })
-
             } else {
                 utils.showToast('登录失败2');
             }
@@ -69,6 +58,11 @@ function login(phone, captcha, fn) {
     })
 }
 
+function logout() {
+    store.commit(types.SET_USER_INFO, {});
+    store.commit(types.SET_IS_LOGIN, false);
+    store.commit(types.SET_LOGIN_INFO, {});
+}
 
 //获取验证码
 function getCaptcha(phone, fn) {
@@ -83,4 +77,5 @@ export default {
     getUserInfo,
     getCaptcha,
     login,
+    logout
 }
