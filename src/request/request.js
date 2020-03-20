@@ -17,14 +17,14 @@ fly.interceptors.request.use((request) => {
 fly.interceptors.response.use(
     (response) => {
         if (response.data.code == 1) {
+            wx.hideLoading();
+
             wx.showToast({
                 title: response.data.message,
                 icon: "none",
                 duration: 800,
                 mask: true
             });
-            wx.hideLoading();
-
         } else {
             wx.hideLoading();
             return response.data.data
@@ -34,7 +34,7 @@ fly.interceptors.response.use(
     },
     (err) => {
         wx.hideLoading();
-        return Promise.resolve(err)
+        return Promise.reject(err)
     }
 )
 

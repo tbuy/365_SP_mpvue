@@ -40,13 +40,15 @@ function login(phone, captcha) {
                     encryptedData: store.state.loginInfo.encryptedData,
                     iv: store.state.loginInfo.iv
                 }).then(res => {
-                    store.commit(types.SET_USER_INFO, {
-                        name: res.name,
-                        phone: res.phone,
-                        icon: res.icon,
-                        id: res.id
-                    });
-                    store.commit(types.SET_IS_LOGIN, true);
+                    if (res.id) {
+                        store.commit(types.SET_USER_INFO, {
+                            name: res.name,
+                            phone: res.phone,
+                            icon: res.icon,
+                            id: res.id
+                        });
+                        store.commit(types.SET_IS_LOGIN, true);
+                    }
                 })
             } else {
                 utils.showToast('登录失败2');

@@ -42,7 +42,7 @@
 <script>
 import { loginService } from "../../request";
 import { store } from "../../store";
-
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -56,7 +56,11 @@ export default {
     isHeightlight() {
       return this.phone > 0 && this.captcha > 0 ? true : false;
     },
-    isLogin: () => store.state.isLogin
+    ...mapState({
+      isLogin: state => {
+        return state.isLogin;
+      }
+    })
   },
   methods: {
     async formSubmit(e) {
@@ -66,12 +70,12 @@ export default {
       } else if (this.captcha == "" || this.captcha < 6) {
         this.$utils.showToast("请输入正确验证码");
       } else {
-        await loginService.login(this.phone, this.captcha);
-        if (this.isLogin) {
-          setTimeout(() => {
-            wx.navigateBack();
-          }, 1000);
-        }
+        let reault = await loginService.login(this.phone, this.captcha);
+        setTimeout(() => {
+          if (this.isLogin) {
+            wx.reLaunch({ url: "/pages/user/main" });
+          }
+        }, 300);
       }
     },
 
@@ -109,7 +113,7 @@ export default {
   },
   mounted() {
     this.phone = "";
-    this.captchav = "";
+    this.captcha = "";
   }
 };
 </script>

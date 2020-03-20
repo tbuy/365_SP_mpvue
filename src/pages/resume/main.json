@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "我的简历",
+  "usingComponents": {
+    "van-image": "/static/vant/image/index",
+    "van-icon": "/static/vant/icon/index",
+    "van-button": "/static/vant/button/index",
+    "van-field": "/static/vant/field/index",
+    "van-uploader": "/static/vant/uploader/index",
+    "van-tag": "/static/vant/tag/index",
+    "van-area": "/static/vant/area/index"
+  }
+}

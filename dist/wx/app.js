@@ -1,6 +1,6 @@
 require("./common/manifest.js")
 require("./common/vendor.js")
-global.webpackJsonpMpvue([7],{
+global.webpackJsonpMpvue([8],{
 
 /***/ 55:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -11,7 +11,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(7);
 
 
 
@@ -123,31 +123,29 @@ if (false) {(function () {
 
     //检查是否登录 登录返回ture 未登录返回false
     checkLogin: function checkLogin() {
-      var _this = this;
-
-      if (wx.getStorageSync("accessToken")) {
-        // 检查 session_key 是否过期
-        wx.checkSession({
-          // session_key 未过期
-          success: function success() {
-            // 直接从Storage中获取用户信息
-            if (wx.getStorageSync("userInfo")) {
-              _this.userInfo = JSON.parse(wx.getStorageSync("userInfo"));
-              wx.setStorageSync("isLogin", true);
-            } else {
-              _this.showToast("缓存信息缺失");
-              wx.setStorageSync("isLogin", false);
-            }
-          },
-          // session_key 过期
-          fail: function fail() {
-            _this.showToast("缓存信息缺失");
-            wx.setStorageSync("isLogin", false);
-          }
-        });
-      } else {
-        wx.setStorageSync("isLogin", false);
-      }
+      // if (wx.getStorageSync("accessToken")) {
+      //   // 检查 session_key 是否过期
+      //   wx.checkSession({
+      //     // session_key 未过期
+      //     success: () => {
+      //       // 直接从Storage中获取用户信息
+      //       if (wx.getStorageSync("userInfo")) {
+      //         this.userInfo = JSON.parse(wx.getStorageSync("userInfo"));
+      //         wx.setStorageSync("isLogin", true);
+      //       } else {
+      //         this.showToast("缓存信息缺失");
+      //         wx.setStorageSync("isLogin", false);
+      //       }
+      //     },
+      //     // session_key 过期
+      //     fail: () => {
+      //       this.showToast("缓存信息缺失");
+      //       wx.setStorageSync("isLogin", false);
+      //     }
+      //   });
+      // } else {
+      //   wx.setStorageSync("isLogin", false);
+      // }
     }
   }
 });

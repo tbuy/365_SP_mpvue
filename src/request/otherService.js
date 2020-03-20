@@ -6,6 +6,7 @@ import apiPath from "./apiPath";
 import request from "./request";
 import utils from '../utils'
 import config from '../config'
+import area from '../../static/json/area'
 
 
 //获取视频列表
@@ -50,11 +51,12 @@ function makePhoneCall(phone) {
         phoneNumber: phone || config.phone
     });
 }
+
 export default {
     getVideoList,
     getVideo,
     getOrderList,
     getOrder,
     getAdPosition,
-    makePhoneCall
+    makePhoneCall,
 }

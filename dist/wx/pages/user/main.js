@@ -2,14 +2,14 @@ require("../../common/manifest.js")
 require("../../common/vendor.js")
 global.webpackJsonpMpvue([3],{
 
-/***/ 125:
+/***/ 131:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(132);
 
 
 
@@ -18,16 +18,16 @@ app.$mount();
 
 /***/ }),
 
-/***/ 126:
+/***/ 132:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(128);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_mpvue_loader_lib_template_compiler_index_id_data_v_20c0a6c7_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_fileExt_template_wxml_script_js_style_wxss_platform_wx_node_modules_mpvue_loader_lib_selector_type_template_index_0_index_vue__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_mpvue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_mpvue_loader_lib_template_compiler_index_id_data_v_20c0a6c7_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_fileExt_template_wxml_script_js_style_wxss_platform_wx_node_modules_mpvue_loader_lib_selector_type_template_index_0_index_vue__ = __webpack_require__(135);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(127)
+  __webpack_require__(133)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
@@ -72,19 +72,20 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 127:
+/***/ 133:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 128:
+/***/ 134:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__request__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__request__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(65);
 //
 //
 //
@@ -114,6 +115,8 @@ if (false) {(function () {
 //
 //
 //
+
+
 
 
 
@@ -131,7 +134,7 @@ if (false) {(function () {
         id: 2,
         iconClass: "description",
         title: "我的简历",
-        router: ""
+        router: "/pages/resume/main"
       }, {
         id: 3,
         iconClass: "notes-o",
@@ -147,21 +150,18 @@ if (false) {(function () {
         iconClass: "service-o",
         title: "意见反馈",
         router: ""
-      }],
-      isLogin: false,
-      userName: "",
-      icon: ""
+      }]
     };
   },
 
-  computed: {
-    userInfo: function userInfo() {
-      return __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.userInfo;
+  computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])({
+    userInfo: function userInfo(state) {
+      return state.userInfo;
     },
-    isLogin: function isLogin() {
-      return __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.isLogin;
+    isLogin: function isLogin(state) {
+      return state.isLogin;
     }
-  },
+  }),
   methods: {
     getUserInfo: function getUserInfo(e) {
       var _mpData = e.mp.detail;
@@ -182,18 +182,27 @@ if (false) {(function () {
       }, 800);
     },
     goItem: function goItem(item) {
-      if (item.id == 5) {
+      if (item.id == 2) {
+        if (this.isLogin) {
+          wx.navigateTo({
+            url: item.router
+          });
+        } else {
+          this.$utils.showToast("请先登录");
+        }
+      } else if (item.id == 5) {
         __WEBPACK_IMPORTED_MODULE_1__request__["b" /* otherService */].makePhoneCall("");
       } else {
         this.$utils.showToast("敬请期待");
       }
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
 
-/***/ 129:
+/***/ 135:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -281,4 +290,4 @@ if (false) {
 
 /***/ })
 
-},[125]);
+},[131]);

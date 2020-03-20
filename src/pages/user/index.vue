@@ -30,6 +30,8 @@
 <script>
 import { store } from "../../store";
 import { loginService, otherService } from "../../request";
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -44,7 +46,7 @@ export default {
           id: 2,
           iconClass: "description",
           title: "我的简历",
-          router: ""
+          router: "/pages/resume/main"
         },
         {
           id: 3,
@@ -64,16 +66,17 @@ export default {
           title: "意见反馈",
           router: ""
         }
-      ],
-      isLogin: false,
-      userName: "",
-      icon: ""
+      ]
     };
   },
-  computed: {
-    userInfo: () => store.state.userInfo,
-    isLogin: () => store.state.isLogin
-  },
+  computed: mapState({
+    userInfo: state => {
+      return state.userInfo;
+    },
+    isLogin: state => {
+      return state.isLogin;
+    }
+  }),
   methods: {
     getUserInfo(e) {
       let _mpData = e.mp.detail;
@@ -94,13 +97,22 @@ export default {
       }, 800);
     },
     goItem(item) {
-      if (item.id == 5) {
+      if (item.id == 2) {
+        if (this.isLogin) {
+          wx.navigateTo({
+            url: item.router
+          });
+        } else {
+          this.$utils.showToast("请先登录");
+        }
+      } else if (item.id == 5) {
         otherService.makePhoneCall("");
       } else {
         this.$utils.showToast("敬请期待");
       }
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 <style scoped>

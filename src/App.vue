@@ -26,29 +26,29 @@ export default {
     },
     //检查是否登录 登录返回ture 未登录返回false
     checkLogin() {
-      if (wx.getStorageSync("accessToken")) {
-        // 检查 session_key 是否过期
-        wx.checkSession({
-          // session_key 未过期
-          success: () => {
-            // 直接从Storage中获取用户信息
-            if (wx.getStorageSync("userInfo")) {
-              this.userInfo = JSON.parse(wx.getStorageSync("userInfo"));
-              wx.setStorageSync("isLogin", true);
-            } else {
-              this.showToast("缓存信息缺失");
-              wx.setStorageSync("isLogin", false);
-            }
-          },
-          // session_key 过期
-          fail: () => {
-            this.showToast("缓存信息缺失");
-            wx.setStorageSync("isLogin", false);
-          }
-        });
-      } else {
-        wx.setStorageSync("isLogin", false);
-      }
+      // if (wx.getStorageSync("accessToken")) {
+      //   // 检查 session_key 是否过期
+      //   wx.checkSession({
+      //     // session_key 未过期
+      //     success: () => {
+      //       // 直接从Storage中获取用户信息
+      //       if (wx.getStorageSync("userInfo")) {
+      //         this.userInfo = JSON.parse(wx.getStorageSync("userInfo"));
+      //         wx.setStorageSync("isLogin", true);
+      //       } else {
+      //         this.showToast("缓存信息缺失");
+      //         wx.setStorageSync("isLogin", false);
+      //       }
+      //     },
+      //     // session_key 过期
+      //     fail: () => {
+      //       this.showToast("缓存信息缺失");
+      //       wx.setStorageSync("isLogin", false);
+      //     }
+      //   });
+      // } else {
+      //   wx.setStorageSync("isLogin", false);
+      // }
     }
   }
 };
