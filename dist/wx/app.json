@@ -6,7 +6,8 @@
     "pages/videoContent/main",
     "pages/orderContent/main",
     "pages/login/main",
-    "pages/resume/main"
+    "pages/resume/main",
+    "pages/activity/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

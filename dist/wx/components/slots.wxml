@@ -1,6 +1,6 @@
 <import src="/components/scroll.vue.wxml" />
 <template name="data-v-0c52e028-default-4">
-  <view class="_div data-v-0c52e028 pub_card" wx:key="item.id" key="{{item.id}}" bindtap="handleProxy" data-eventid="{{'0_'+index}}" data-comkey="{{$k}}" wx:for="{{orderList}}" wx:for-index="index" wx:for-item="item">
+  <view class="_div data-v-0c52e028 pub_card" wx:key="item.id" key="{{item.id}}" bindtap="handleProxy" data-eventid="{{'1_'+index}}" data-comkey="{{$k}}" wx:for="{{orderList}}" wx:for-index="index" wx:for-item="item">
     <view class="_div data-v-0c52e028 pub_card_item">
       <view class="_div data-v-0c52e028 oneline">
         <view class="_div data-v-0c52e028 title">{{ item.work_type || "面议" }}</view>
@@ -17,6 +17,27 @@
             }}
       </view>
       <view class="_div data-v-0c52e028 time">{{ item.created_at }}</view>
+    </view>
+  </view>
+</template>
+<template name="data-v-e0ba9eea-default-4">
+  <view class="_div data-v-e0ba9eea pub_card" wx:key="item.id" key="{{item.id}}" bindtap="handleProxy" data-eventid="{{'0_'+index}}" data-comkey="{{$k}}" wx:for="{{orderList}}" wx:for-index="index" wx:for-item="item">
+    <view class="_div data-v-e0ba9eea pub_card_item">
+      <view class="_div data-v-e0ba9eea oneline">
+        <view class="_div data-v-e0ba9eea title">{{ item.work_type || "面议" }}</view>
+        <view class="_div data-v-e0ba9eea price">{{ item.wage || "面议" }}</view>
+      </view>
+      <view class="_div data-v-e0ba9eea text">
+        <van-icon name="clock-o" class="_van-icon data-v-e0ba9eea pub-icon icon"></van-icon>
+        {{ item.service_duration || "面议"
+            }}
+      </view>
+      <view class="_div data-v-e0ba9eea text">
+        <van-icon name="location-o" class="_van-icon data-v-e0ba9eea pub-icon icon"></van-icon>
+        {{ item.service_address || "面议"
+            }}
+      </view>
+      <view class="_div data-v-e0ba9eea time">{{ item.created_at }}</view>
     </view>
   </view>
 </template>

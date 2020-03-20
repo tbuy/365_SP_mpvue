@@ -89,6 +89,13 @@
 					"id": -1,
 					"name": "pages/resume/main",
 					"pathName": "pages/resume/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/activity/main",
+					"pathName": "pages/activity/main",
 					"scene": null
 				}
 			]

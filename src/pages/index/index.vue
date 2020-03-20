@@ -8,7 +8,14 @@
     >
       <div class="banner">
         <swiper-item v-for="item in bannerImage" :key="item.id">
-          <van-image width="100%" height="100%" fit="cover" lazy-load :src="item.url"></van-image>
+          <van-image
+            width="100%"
+            height="100%"
+            fit="cover"
+            lazy-load
+            :src="item.url"
+            @click="goActive(item)"
+          ></van-image>
         </swiper-item>
       </div>
     </swiper>
@@ -95,6 +102,15 @@ export default {
         this.getOrderList();
       } else {
         this.$utils.showToast("没有更多");
+      }
+    },
+    goActive(item) {
+      if (item.jump_type == 1) {
+        wx.navigateTo({
+          url: "/pages/activity/main?url=" + item.activity_url
+        });
+      } else {
+        this.$utils.showToast("敬请期待");
       }
     }
   },
